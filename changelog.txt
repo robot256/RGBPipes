@@ -1,0 +1,11 @@
+---------------------------------------------------------------------------------------------------
+Version: 1.0.1
+Date: 2024-10-14
+  Changes:
+    - Colored pipes won't fast-replace each other by default.
+    - Added setting to allow universal fast-replace (can cause fluid mixing).
+---------------------------------------------------------------------------------------------------
+Version: 1.0.0
+Date: 2024-10-12
+  Features:
+    - Initial release of RGB Pipes!
