@@ -2,11 +2,11 @@
 -- Change the connection categories of all the other entities with default pipe connections
 
 
-local connection_category = {"default"}
+local default_categories = {"default"}
 for _,effect in pairs(data.raw.technology["colored-pipes"].effects) do
   local name = effect.recipe
-  if data.raw.pipe[name] then
-    table.insert(connection_category, name)
+  if data.raw.pipe[name] and name ~= "black-pipe" then
+    default_categories[#default_categories+1] = name
   end
 end
 
@@ -17,7 +17,9 @@ local function makeFluidBoxUniversal(fluidbox)
       -- Only change entities that have default connection category
       if (not pcon.connection_category) or (type(pcon.connection_category) == "string" and pcon.connection_category == "default") or 
          (type(pcon.connection_category) == "table" and #pcon.connection_category == 1 and pcon.connection_category[1] == "default") then
-        pcon.connection_category = table.deepcopy(connection_category)
+        --local old = table.deepcopy(pcon.connection_category)
+        pcon.connection_category = table.deepcopy(default_categories)
+        --log("Changed "..serpent.line(old).." to "..serpent.line(pcon.connection_category))
         changed = true
       end
     end

@@ -30,9 +30,10 @@ local techproto =
 }
 
 
-local function addColoredPipe(proto, item, name, tint, order)
+local function addColoredPipe(proto, item, name, desc, order)
   -- Copy pipe entities
   local newpipe = table.deepcopy(proto)
+  local tint = desc.tint
   -- Apply new name and localised name
   newpipe.name = name.."-"..proto.name
   newpipe.order = "c[pipe]-d"..(order or "").."["..newpipe.name.."]"
@@ -73,7 +74,11 @@ local function addColoredPipe(proto, item, name, tint, order)
   end
   -- Set pipe connection categories
   for _,pcon in pairs(newpipe.fluid_box.pipe_connections) do
-    pcon.connection_category = name.."-pipe"
+    if not pcon.connection_type or pcon.connection_type == "normal" then
+      pcon.connection_category = table.deepcopy(desc.mask)
+    elseif pcon.connection_type == "underground" then
+      pcon.connection_category = desc.mask[1]
+    end
   end
   
   -- Make item
@@ -101,13 +106,25 @@ local function addColoredPipe(proto, item, name, tint, order)
   data:extend{newpipe, newitem, newrecipe}
 end
 
-local pipe_types = {red={0.9,0.3,0.3,1}, green={0.3,0.9,0.3,1}, blue={0.3,0.3,0.9,1}}
+-- Achieve actual color wheel connections with minimum number of categories: 12 + default
+-- First mask in list is name of the underground connection type.
+-- Each color only connects to White, Black, and the adjacent mixed or primary colors.
+-- Black does not connect to White.
+local pipe_types = {
+  red =    {mask={"red-pipe",    "red-yellow-black",  "red-purple"},   tint={0.9, 0.3, 0.3, 1}},
+  yellow = {mask={"yellow-pipe", "red-yellow-black",  "green-yellow"}, tint={0.9, 0.9, 0.3, 1}},
+  green =  {mask={"green-pipe",  "green-teal-black",  "green-yellow"}, tint={0.3, 0.9, 0.3, 1}},
+  teal =   {mask={"teal-pipe",   "green-teal-black",  "blue-teal"},    tint={0.3, 0.9, 0.9, 1}},
+  blue =   {mask={"blue-pipe",   "blue-purple-black", "blue-teal"},    tint={0.35,0.35,  1, 1}},
+  purple = {mask={"purple-pipe", "blue-purple-black", "red-purple"},   tint={0.65,0.3, 0.9, 1}},
+  black =  {mask={"red-yellow-black", "green-teal-black", "blue-purple-black"}, tint={0.25,0.25,0.25,1}}
+}
 
 local color_number = 1
-for name,color in pairs(pipe_types) do
-  addColoredPipe(data.raw.pipe.pipe, data.raw.item.pipe, name, color, string.format("%02d",color_number))
+for name,desc in pairs(pipe_types) do
+  addColoredPipe(data.raw.pipe.pipe, data.raw.item.pipe, name, desc, string.format("%02d",color_number))
   color_number = color_number + 1
-  addColoredPipe(data.raw["pipe-to-ground"]["pipe-to-ground"], data.raw.item["pipe-to-ground"], name, color, string.format("%02d",color_number))
+  addColoredPipe(data.raw["pipe-to-ground"]["pipe-to-ground"], data.raw.item["pipe-to-ground"], name, desc, string.format("%02d",color_number))
   color_number = color_number + 1
 end
 

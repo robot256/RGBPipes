@@ -1,9 +1,9 @@
 {
 	"name": "RGBPipes",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"title": "RGB Pipes",
 	"author": "robot256",
-	"homepage": "",
+	"homepage": "https://mods.factorio.com/mod/RGBPipes",
 	"description": "Multicolor pipes that don't mix!",
 	"factorio_version": "2.0",
 	"dependencies": ["base"]

@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.0.2
+Date: 2024-10-19
+  Features:
+    - More colors! Yellow, Teal, and Purple pipes can bridge between specific colors.
+    - Black pipes connect to colored pipes and don't connect to machines.
+---------------------------------------------------------------------------------------------------
 Version: 1.0.1
 Date: 2024-10-14
   Changes:
