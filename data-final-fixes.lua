@@ -33,6 +33,7 @@ local change_types = {
   "pipe",
   "pipe-to-ground",
   "pump",
+  "infinity-pipe",
   "storage-tank",
   "assembling-machine",
   "furnace",

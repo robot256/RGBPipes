@@ -112,6 +112,7 @@ end
 -- Black does not connect to White.
 local pipe_types = {
   red =    {mask={"red-pipe",    "red-yellow-black",  "red-purple"},   tint={0.9, 0.3, 0.3, 1}},
+  orange = {mask={"red-yellow-black", "red-pipe"},                     tint={0.9, 0.55, 0.2, 1}},
   yellow = {mask={"yellow-pipe", "red-yellow-black",  "green-yellow"}, tint={0.9, 0.9, 0.3, 1}},
   green =  {mask={"green-pipe",  "green-teal-black",  "green-yellow"}, tint={0.3, 0.9, 0.3, 1}},
   teal =   {mask={"teal-pipe",   "green-teal-black",  "blue-teal"},    tint={0.3, 0.9, 0.9, 1}},

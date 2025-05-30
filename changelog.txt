@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.0.3
+Date: 2025-05-30
+  Features:
+    - Added Orange Pipes! Connects to Red and Yellow.
+  Bugfixes:
+    - Fixed that Infinity Pipes didn't connect to colored pipes.
+---------------------------------------------------------------------------------------------------
 Version: 1.0.2
 Date: 2024-10-19
   Features:
